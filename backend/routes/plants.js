@@ -10,6 +10,8 @@ router.get("/", plantCtrl.index);
 
 router.get("/:plantId", plantCtrl.show);
 
+router.get("/search/:query", plantCtrl.searchPlant);
+
 router.post("/", plantCtrl.create);
 
 router.delete("/:plantId", plantCtrl.delete);

@@ -26,7 +26,20 @@ const getPlant = async (plantId) => {
   }
 };
 
+const getPlantCare = async (plantId) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}species-care-guide-list?species_id=${plantId}&key=${key}`
+    );
+    const plantCare = await response.json();
+    return plantCare;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getPlant,
   searchPlant,
+  getPlantCare,
 };
