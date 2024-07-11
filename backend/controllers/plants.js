@@ -44,4 +44,16 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { index, create, show };
+const deletePlant = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const deletedPlant = user.plants.remove({ _id: req.params.plantId });
+    await user.save();
+    res.status(204).json(deletedPlant);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { index, create, show, delete: deletePlant };

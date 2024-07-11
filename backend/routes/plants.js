@@ -12,4 +12,6 @@ router.get("/:plantId", plantCtrl.show);
 
 router.post("/", plantCtrl.create);
 
+router.delete("/:plantId", plantCtrl.delete);
+
 module.exports = router;
