@@ -1,20 +1,31 @@
-import { useState, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Landing from "./components/Landing";
+import Garden from "./components/Garden";
 import SignupForm from "./components/SignupForm";
 import SigninForm from "./components/SigninForm";
 import * as authService from "../src/services/authService";
+import * as plantService from "../src/services/plantService";
 
 export const AuthedUserContext = createContext(null);
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
+  const [plants, setPlants] = useState([]);
 
   const handleSignout = () => {
     authService.signout();
     setUser(null);
   };
+
+  useEffect(() => {
+    const fetchPlants = async () => {
+      const plants = await plantService.index();
+      setPlants(plants);
+    };
+    if (user) fetchPlants();
+  }, [user]);
 
   return (
     <>
@@ -24,7 +35,7 @@ const App = () => {
           {user ? (
             <>
               <Route path="/" element={<Landing />} />
-              <Route path="/plants" />
+              <Route path="/plants" element={<Garden plants={plants} />} />
               <Route path="/plants/new" />
             </>
           ) : (
