@@ -1,10 +1,10 @@
 const Landing = () => {
   return (
     <main>
-      <h1>Hello, you are on the landing page for visitors.</h1>
-      <h3>
-        If you sign up for a new account, you will have the ability to sign in
-        and see your super secret dashboard.
+      <h1 className="p-4 text-2xl">Welcome to GrowApp</h1>
+      <h3 className="p-4 text-xl">
+        Take the guesswork out of gardening with GrowApp. Track your plants'
+        growth, watering schedule, and more.
       </h3>
     </main>
   );
