@@ -32,14 +32,13 @@ const plantsSchema = new mongoose.Schema(
       required: true,
     },
     wateringFrequency: {
-      type: Number,
+      type: String,
       required: true,
     },
     wateringPeriod: {
       type: String,
-      required: true,
     },
-    sunLight: {
+    sunlight: {
       type: String,
       required: true,
     },

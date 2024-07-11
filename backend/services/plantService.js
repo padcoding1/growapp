@@ -1,9 +1,10 @@
 const BASE_URL = "https://perenual.com/api/";
+const key = process.env.PLANT_API_KEY;
 
 const searchPlant = async (query) => {
   try {
     const response = await fetch(
-      `${BASE_URL}species-list?key=${process.env.PLANT_API_KEY}&q=${query}`
+      `${BASE_URL}species-list?key=${key}&q=${query}`
     );
     const plants = await response.json();
     return plants;
@@ -13,20 +14,19 @@ const searchPlant = async (query) => {
   }
 };
 
-const getPLant = async (plantId) => {
+const getPlant = async (plantId) => {
   try {
     const response = await fetch(
-      `${BASE_URL}species/details/${plantId}?key=${process.env.PLANT_API_KEY}`
+      `${BASE_URL}species/details/${plantId}?key=${key}`
     );
     const plant = await response.json();
     return plant;
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: error.message });
   }
 };
 
 module.exports = {
-  getPLant,
+  getPlant,
   searchPlant,
 };

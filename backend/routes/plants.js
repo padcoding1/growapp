@@ -8,4 +8,8 @@ router.use(verifyToken);
 
 router.get("/", plantCtrl.index);
 
+router.get("/:plantId", plantCtrl.show);
+
+router.post("/", plantCtrl.create);
+
 module.exports = router;
