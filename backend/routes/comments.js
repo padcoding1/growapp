@@ -6,14 +6,12 @@ const commentCtrl = require("../controllers/comments");
 
 router.use(verifyToken);
 
-router.post("/", commentCtrl.createComment);
+router.post("/", commentCtrl.create);
 
-// router.delete("/comments/:commentId", plantCtrl.deleteComment);
+router.delete("/:commentId", commentCtrl.delete);
 
-// router.put("/comments/:commentId", plantCtrl.updateComment);
+router.put("/:commentId", commentCtrl.update);
 
-// router.get("/comments", plantCtrl.commentsIndex);
-
-// router.get("/comments/:commentId", plantCtrl.showComment);
+router.get("/", commentCtrl.index);
 
 module.exports = router;

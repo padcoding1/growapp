@@ -18,14 +18,4 @@ router.post("/", plantCtrl.create);
 
 router.delete("/:plantId", plantCtrl.delete);
 
-// router.get("/tasks", plantCtrl.tasksIndex);
-
-// router.get("/tasks/:taskId", plantCtrl.showTask);
-
-// router.post("/tasks", plantCtrl.createTask);
-
-// router.delete("/tasks/:taskId", plantCtrl.deleteTask);
-
-// router.put("/tasks/:taskId", plantCtrl.updateTask);
-
 module.exports = router;
