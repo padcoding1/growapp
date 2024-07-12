@@ -10,4 +10,8 @@ router.get("/", taskCtrl.index);
 
 router.post("/", taskCtrl.create);
 
+router.put("/:taskId", taskCtrl.update);
+
+router.delete("/:taskId", taskCtrl.delete);
+
 module.exports = router;
