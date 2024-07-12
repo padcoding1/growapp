@@ -60,6 +60,26 @@ const plantsSchema = new mongoose.Schema(
   { timeStamps: true }
 );
 
+const commentsSchema = new mongoose.Schema(
+  {
+    text: {
+      type: String,
+      required: true,
+    },
+  },
+  { timeStamps: true }
+);
+
+const taskSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+  },
+});
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -70,6 +90,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tasks: [taskSchema],
+  comments: [commentsSchema],
   settings: [settingsSchema],
   plants: [plantsSchema],
 });
