@@ -8,4 +8,6 @@ router.use(verifyToken);
 
 router.get("/", taskCtrl.index);
 
+router.post("/", taskCtrl.create);
+
 module.exports = router;
