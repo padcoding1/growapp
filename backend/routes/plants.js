@@ -18,16 +18,6 @@ router.post("/", plantCtrl.create);
 
 router.delete("/:plantId", plantCtrl.delete);
 
-// router.post("/comments", plantCtrl.createComment);
-
-// router.delete("/comments/:commentId", plantCtrl.deleteComment);
-
-// router.put("/comments/:commentId", plantCtrl.updateComment);
-
-// router.get("/comments", plantCtrl.commentsIndex);
-
-// router.get("/comments/:commentId", plantCtrl.showComment);
-
 // router.get("/tasks", plantCtrl.tasksIndex);
 
 // router.get("/tasks/:taskId", plantCtrl.showTask);
