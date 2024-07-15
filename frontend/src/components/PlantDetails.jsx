@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import * as plantService from "../services/plantService";
 
-function PlantDetails() {
+function PlantDetails(props) {
   const { plantId } = useParams();
   const [plant, setPlant] = useState(null);
 
@@ -28,6 +28,9 @@ function PlantDetails() {
           <p>Sunlight: {plant.sunlight}</p>
           <p>{plant.sunlightInfo}</p>
           <Link to={`/plants/${plant._id}/edit`}>Edit</Link>
+          <button onClick={() => props.handleDeletePlant(plantId)}>
+            Delete
+          </button>
         </div>
       )}
     </>
