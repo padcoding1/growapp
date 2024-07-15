@@ -40,6 +40,7 @@ const App = () => {
 
     navigate(`/plants/${plantId}`);
   };
+  
   return (
     <>
       <AuthedUserContext.Provider value={user}>
