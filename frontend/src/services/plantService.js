@@ -13,4 +13,20 @@ const index = async () => {
   }
 };
 
-export { index };
+const update = async (plant) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${plant._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(plant),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, update };

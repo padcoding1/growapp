@@ -19,6 +19,14 @@ const App = () => {
     setUser(null);
   };
 
+  const handleUpdatePlant = async (plant) => {
+    const updatedPlant = await plantService.update(plant);
+    const updatedPlants = plants.map((p) =>
+      p._id === updatedPlant._id ? updatedPlant : p,
+    );
+    setPlants(updatedPlants);
+  };
+
   useEffect(() => {
     const fetchPlants = async () => {
       const plants = await plantService.index();
@@ -35,7 +43,15 @@ const App = () => {
           {user ? (
             <>
               <Route path="/" element={<Landing />} />
-              <Route path="/plants" element={<Garden plants={plants} />} />
+              <Route
+                path="/plants"
+                element={
+                  <Garden
+                    plants={plants}
+                    handleUpdatePlant={handleUpdatePlant}
+                  />
+                }
+              />
               <Route path="/plants/new" />
             </>
           ) : (
