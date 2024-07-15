@@ -54,7 +54,6 @@ const plantsSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
     },
   },
   { timeStamps: true }
