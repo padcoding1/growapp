@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 function Garden(props) {
-  console.log(props);
   return (
     <main className="mx-4">
       <h1>Garden</h1>

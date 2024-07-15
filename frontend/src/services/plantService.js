@@ -70,4 +70,13 @@ async function updatePlant(plantId, plantFormData) {
   }
 }
 
-export { index, showPlant, createPlant, deletePlant, updatePlant };
+const searchPlant = async (query) => {
+  try {
+    const res = await fetch(`${BASE_URL}/search/${query}`);
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, showPlant, createPlant, deletePlant, updatePlant, searchPlant };

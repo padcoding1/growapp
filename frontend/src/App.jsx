@@ -7,6 +7,7 @@ import SignupForm from "./components/SignupForm";
 import SigninForm from "./components/SigninForm";
 import PlantDetails from "./components/PlantDetails";
 import PlantForm from "./components/PlantForm";
+import SearchPlant from "./components/SearchPlant";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
 
@@ -47,6 +48,12 @@ const App = () => {
     navigate("/plants");
   };
 
+  const handleCreatePlant = async (plantFormData) => {
+    const newPlant = await plantService.createPlant(plantFormData);
+    setPlants([...plants, newPlant]);
+    navigate("/plants");
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -56,13 +63,16 @@ const App = () => {
             <>
               <Route path="/" element={<Landing />} />
               <Route path="/plants" element={<Garden plants={plants} />} />
-              <Route path="/plants/:plantId" element={<PlantDetails handleDeletePlant={handleDeletePlant}/>} />
+              <Route
+                path="/plants/:plantId"
+                element={<PlantDetails handleDeletePlant={handleDeletePlant} />}
+              />
               <Route
                 path="/plants/:plantId/edit"
                 element={<PlantForm handleUpdatePlant={handleUpdatePlant} />}
               />
               \
-              <Route path="/plants/new" />
+              <Route path="/plants/new" element={<SearchPlant />} />
             </>
           ) : (
             <Route path="/" element={<Landing />} />

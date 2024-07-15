@@ -60,9 +60,10 @@ const create = async (req, res) => {
 const deletePlant = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
+    const plant = user.plants.id(req.params.plantId);
     const deletedPlant = user.plants.remove({ _id: req.params.plantId });
     await user.save();
-    res.status(204).json(deletedPlant);
+    res.status(200).json(plant);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
