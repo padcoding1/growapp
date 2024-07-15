@@ -17,7 +17,7 @@ function PlantDetails(props) {
   return (
     <>
       {plant && (
-        <div>
+        <div id={plant._id}>
           <h1>{plant.userPlantName}</h1>
           <h2>{plant.commonName}</h2>
           <h2>{plant.scientificName}</h2>

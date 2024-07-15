@@ -14,22 +14,29 @@ function PlantForm(props) {
       const plant = await plantService.showPlant(plantId);
       setFormData({ userPlantName: plant.userPlantName });
     };
-    fetchPlant();
+    if (props.handleUpdatePlant) fetchPlant();
   }, [plantId]);
 
   const handleChange = (evt) => {
-    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+    setFormData({ ...formData, userPlantName: evt.target.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    props.handleUpdatePlant(plantId, {
-      userPlantName: event.target.userPlantName.value,
-    });
+    if (props.handleUpdatePlant) {
+      props.handleUpdatePlant(plantId, {
+        userPlantName: event.target.userPlantName.value,
+      });
+    } else {
+      props.handleCreatePlant({
+        userPlantName: event.target.userPlantName.value,
+        plantId: plantId,
+      });
+    }
   };
   return (
     <>
-      <h1>Update plant</h1>
+      <h1>{props.handleCreatePlant ? "Add plant" : "Update plant"}</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="userPlantName">Name</label>
         <input
@@ -39,7 +46,7 @@ function PlantForm(props) {
           value={formData.userPlantName}
           onChange={handleChange}
         />
-        <button>Update</button>
+        <button>{props.handleCreatePlant ? "Add" : "Update"}</button>
       </form>
     </>
   );

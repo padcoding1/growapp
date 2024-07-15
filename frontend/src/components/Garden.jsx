@@ -7,8 +7,8 @@ function Garden(props) {
       <ul className="flex flex-wrap">
         {props.plants.map((plant) => (
           <li
-            className="m-2 flex h-96 w-80 flex-col overflow-clip rounded-md border-2 border-black p-4"
             key={plant._id}
+            className="m-2 flex h-96 w-80 flex-col overflow-clip rounded-md border-2 border-black p-4"
           >
             <Link to={`/plants/${plant._id}`}>
               <h2 className="my-2 text-2xl">{plant.userPlantName}</h2>

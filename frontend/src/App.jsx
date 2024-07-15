@@ -71,8 +71,12 @@ const App = () => {
                 path="/plants/:plantId/edit"
                 element={<PlantForm handleUpdatePlant={handleUpdatePlant} />}
               />
-              \
-              <Route path="/plants/new" element={<SearchPlant />} />
+              <Route
+                path="/plants/:plantId/create"
+                element={<PlantForm handleCreatePlant={handleCreatePlant} />}
+              />
+
+              <Route path="/plants/search" element={<SearchPlant />} />
             </>
           ) : (
             <Route path="/" element={<Landing />} />

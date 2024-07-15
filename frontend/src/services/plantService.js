@@ -34,7 +34,9 @@ const createPlant = async (plantFormData) => {
       },
       body: JSON.stringify(plantFormData),
     });
-    return res.json();
+
+    const response = await res.json();
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -72,7 +74,11 @@ async function updatePlant(plantId, plantFormData) {
 
 const searchPlant = async (query) => {
   try {
-    const res = await fetch(`${BASE_URL}/search/${query}`);
+    const res = await fetch(`${BASE_URL}/search/${query}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     return res.json();
   } catch (error) {
     console.log(error);

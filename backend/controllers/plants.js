@@ -44,13 +44,13 @@ const create = async (req, res) => {
       wateringFrequency: plantData.watering,
       sunlight: plantData.sunlight[0],
       description: plantData.description,
-      image: plantData.default_image.regular_url,
+      image: plantData.default_image?.regular_url,
       wateringInfo: plantCare.data[0].section[0].description,
       sunlightInfo: plantCare.data[0].section[1].description,
     };
     user.plants.push(plant);
     await user.save();
-    res.status(201).json(plant);
+    res.status(201).json(user.plants[user.plants.length - 1]);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
