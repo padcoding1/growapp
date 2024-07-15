@@ -10,7 +10,76 @@ const index = async () => {
     return res.json();
   } catch (error) {
     console.log(error);
+    
   }
 };
 
 export { index };
+
+
+const showPlant = async (plantId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${plantId}`, {
+      headers: { Authorization: `Bearer: ${localStorage.getItem("token")}` },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const createPlant = async (plantFormData) => {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(plantFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deletePlant = async (plantId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${plantId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+async function updatePlant(plantId, plantFormData) {
+  try {
+    const res = await fetch(`${BASE_URL}/${plantId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(plantFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+export {
+  index,
+  showPlant,
+  createPlant,
+  deletePlant,
+  updatePlant,
+};
