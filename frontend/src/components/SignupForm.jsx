@@ -40,10 +40,11 @@ const SignupForm = (props) => {
     <main>
       <h1>Sign Up</h1>
       <p>{message}</p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
           <label htmlFor="username">Username:</label>
           <input
+            className="rounded-md border-2 border-black"
             type="text"
             id="name"
             value={username}
@@ -54,6 +55,7 @@ const SignupForm = (props) => {
         <div>
           <label htmlFor="password">Password:</label>
           <input
+            className="rounded-md border-2 border-black"
             type="password"
             id="password"
             value={password}
@@ -64,6 +66,7 @@ const SignupForm = (props) => {
         <div>
           <label htmlFor="confirm">Confirm Password:</label>
           <input
+            className="rounded-md border-2 border-black"
             type="password"
             id="confirm"
             value={passwordConf}
@@ -72,9 +75,16 @@ const SignupForm = (props) => {
           />
         </div>
         <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
+          <button
+            className="rou rounded-md border-2 border-black px-2 py-1"
+            disabled={isFormInvalid()}
+          >
+            Sign Up
+          </button>
           <Link to="/">
-            <button>Cancel</button>
+            <button className="rou rounded-md border-2 border-black px-2 py-1">
+              Cancel
+            </button>
           </Link>
         </div>
       </form>

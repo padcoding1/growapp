@@ -35,10 +35,15 @@ const SigninForm = (props) => {
     <main>
       <h1>Log In</h1>
       <p>{message}</p>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-4"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <div>
           <label htmlFor="email">Username:</label>
           <input
+            className="rounded-md border-2 border-black"
             type="text"
             autoComplete="off"
             id="username"
@@ -50,6 +55,7 @@ const SigninForm = (props) => {
         <div>
           <label htmlFor="password">Password:</label>
           <input
+            className="rounded-md border-2 border-black"
             type="password"
             autoComplete="off"
             id="password"
@@ -59,9 +65,13 @@ const SigninForm = (props) => {
           />
         </div>
         <div>
-          <button>Log In</button>
+          <button className="rou rounded-md border-2 border-black px-2 py-1">
+            Log In
+          </button>
           <Link to="/">
-            <button>Cancel</button>
+            <button className="rou rounded-md border-2 border-black px-2 py-1">
+              Cancel
+            </button>
           </Link>
         </div>
       </form>

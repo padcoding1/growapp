@@ -12,6 +12,8 @@ router.get("/:plantId", plantCtrl.show);
 
 router.get("/search/:query", plantCtrl.searchPlant);
 
+router.put("/:plantId", plantCtrl.update);
+
 router.post("/", plantCtrl.create);
 
 router.delete("/:plantId", plantCtrl.delete);

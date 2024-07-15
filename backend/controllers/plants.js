@@ -69,4 +69,24 @@ const deletePlant = async (req, res) => {
   }
 };
 
-module.exports = { index, create, show, delete: deletePlant, searchPlant };
+const update = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const plant = user.plants.id(req.params.plantId);
+    plant.userPlantName = req.body.userPlantName;
+    await user.save();
+    res.status(200).json(plant);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  index,
+  create,
+  show,
+  delete: deletePlant,
+  searchPlant,
+  update,
+};
