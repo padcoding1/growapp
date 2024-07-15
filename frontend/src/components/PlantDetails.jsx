@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import * as plantService from "../services/plantService";
 
 function PlantDetails() {
@@ -18,7 +18,8 @@ function PlantDetails() {
     <>
       {plant && (
         <div>
-          <h1>{plant.commonName}</h1>
+          <h1>{plant.userPlantName}</h1>
+          <h2>{plant.commonName}</h2>
           <h2>{plant.scientificName}</h2>
           <img className="size-72" src={plant.image} alt={plant.commonName} />
           <p>{plant.description}</p>
@@ -26,6 +27,7 @@ function PlantDetails() {
           <p>{plant.wateringInfo}</p>
           <p>Sunlight: {plant.sunlight}</p>
           <p>{plant.sunlightInfo}</p>
+          <Link to={`/plants/${plant._id}/edit`}>Edit</Link>
         </div>
       )}
     </>
