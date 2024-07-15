@@ -15,7 +15,7 @@ function PlantForm(props) {
       setFormData({ userPlantName: plant.userPlantName });
     };
     if (props.handleUpdatePlant) fetchPlant();
-  }, [plantId]);
+  }, [plantId, props.handleUpdatePlant]);
 
   const handleChange = (evt) => {
     setFormData({ ...formData, userPlantName: evt.target.value });
