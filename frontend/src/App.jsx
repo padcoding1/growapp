@@ -27,6 +27,26 @@ const App = () => {
     if (user) fetchPlants();
   }, [user]);
 
+<<<<<<< Updated upstream
+=======
+  const handleUpdatePlant = async (plantId, plantFormData) => {
+    const updatedPlant = await plantService.updatePlant(plantId, plantFormData);
+    setPlants(
+      plants.map((plant) =>
+        plant._id === updatedPlant._id ? updatedPlant : plant,
+      ),
+    );
+
+    navigate(`/plants/${plantId}`);
+  };
+
+  const handleDeletePlant = async (plantId) => {
+    const deletedPlant = await plantService.deletePlant(plantId);
+    setPlants(plants.filter((plant) => plant._id !== deletedPlant._id));
+    navigate("/plants");
+  };
+
+>>>>>>> Stashed changes
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -36,6 +56,15 @@ const App = () => {
             <>
               <Route path="/" element={<Landing />} />
               <Route path="/plants" element={<Garden plants={plants} />} />
+<<<<<<< Updated upstream
+=======
+              <Route path="/plants/:plantId" element={<PlantDetails handleDeletePlant={handleDeletePlant}/>} />
+              <Route
+                path="/plants/:plantId/edit"
+                element={<PlantForm handleUpdatePlant={handleUpdatePlant} />}
+              />
+              \
+>>>>>>> Stashed changes
               <Route path="/plants/new" />
             </>
           ) : (
