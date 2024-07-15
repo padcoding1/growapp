@@ -5,6 +5,7 @@ import Landing from "./components/Landing";
 import Garden from "./components/Garden";
 import SignupForm from "./components/SignupForm";
 import SigninForm from "./components/SigninForm";
+import PlantDetails from "./components/PlantDetails";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
 
@@ -36,6 +37,7 @@ const App = () => {
             <>
               <Route path="/" element={<Landing />} />
               <Route path="/plants" element={<Garden plants={plants} />} />
+              <Route path="/plants/:plantId" element={<PlantDetails />} />
               <Route path="/plants/new" />
             </>
           ) : (

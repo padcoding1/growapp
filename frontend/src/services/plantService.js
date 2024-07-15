@@ -10,12 +10,8 @@ const index = async () => {
     return res.json();
   } catch (error) {
     console.log(error);
-    
   }
 };
-
-export { index };
-
 
 const showPlant = async (plantId) => {
   try {
@@ -74,12 +70,4 @@ async function updatePlant(plantId, plantFormData) {
   }
 }
 
-
-
-export {
-  index,
-  showPlant,
-  createPlant,
-  deletePlant,
-  updatePlant,
-};
+export { index, showPlant, createPlant, deletePlant, updatePlant };
