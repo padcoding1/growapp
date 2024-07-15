@@ -1,11 +1,12 @@
 import { useState, useEffect, createContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Landing from "./components/Landing";
 import Garden from "./components/Garden";
 import SignupForm from "./components/SignupForm";
 import SigninForm from "./components/SigninForm";
 import PlantDetails from "./components/PlantDetails";
+import PlantForm from "./components/PlantForm";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
 
@@ -14,6 +15,7 @@ export const AuthedUserContext = createContext(null);
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
   const [plants, setPlants] = useState([]);
+  const navigate = useNavigate();
 
   const handleSignout = () => {
     authService.signout();
@@ -28,6 +30,16 @@ const App = () => {
     if (user) fetchPlants();
   }, [user]);
 
+  const handleUpdatePlant = async (plantId, plantFormData) => {
+    const updatedPlant = await plantService.updatePlant(plantId, plantFormData);
+    setPlants(
+      plants.map((plant) =>
+        plant._id === updatedPlant._id ? updatedPlant : plant,
+      ),
+    );
+
+    navigate(`/plants/${plantId}`);
+  };
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -38,6 +50,11 @@ const App = () => {
               <Route path="/" element={<Landing />} />
               <Route path="/plants" element={<Garden plants={plants} />} />
               <Route path="/plants/:plantId" element={<PlantDetails />} />
+              <Route
+                path="/plants/:plantId/edit"
+                element={<PlantForm handleUpdatePlant={handleUpdatePlant} />}
+              />
+              \
               <Route path="/plants/new" />
             </>
           ) : (
