@@ -40,6 +40,13 @@ const App = () => {
 
     navigate(`/plants/${plantId}`);
   };
+
+  const handleDeletePlant = async (plantId) => {
+    const deletedPlant = await plantService.deletePlant(plantId);
+    setPlants(plants.filter((plant) => plant._id !== deletedPlant._id));
+    navigate("/plants");
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -49,7 +56,7 @@ const App = () => {
             <>
               <Route path="/" element={<Landing />} />
               <Route path="/plants" element={<Garden plants={plants} />} />
-              <Route path="/plants/:plantId" element={<PlantDetails />} />
+              <Route path="/plants/:plantId" element={<PlantDetails handleDeletePlant={handleDeletePlant}/>} />
               <Route
                 path="/plants/:plantId/edit"
                 element={<PlantForm handleUpdatePlant={handleUpdatePlant} />}
