@@ -1,30 +1,42 @@
 import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import placeholder from "../assets/placeholder.png";
 
 function Garden(props) {
   return (
     <main className="mx-4">
-      <h1>Garden</h1>
-      <ul className="flex flex-wrap">
+      <h1 className="m-4 text-4xl font-semibold text-green-600">Garden</h1>
+      <ul className="flex flex-wrap justify-center gap-8">
         {props.plants.map((plant) => (
-          <li
+          <Card
+            className="h-96 w-96 overflow-hidden text-green-600 shadow-md"
             key={plant._id}
-            className="m-2 flex h-96 w-80 flex-col overflow-clip rounded-md border-2 border-black p-4"
           >
             <Link to={`/plants/${plant._id}`}>
-              <h2 className="my-2 text-2xl">{plant.userPlantName}</h2>
-              <h3 className="relative top-64 my-2 text-xl text-white">
-                {plant.commonName}
-              </h3>
-              <img
-                className="size-64"
-                src={plant.image}
-                alt={plant.commonName}
-              />
-              <p>Watering Frequency: {plant.wateringFrequency}</p>
-              <p>Sunlight: {plant.sunlight}</p>
-              <p>{plant.description}</p>
+              <CardHeader>
+                <CardTitle>{plant.userPlantName}</CardTitle>
+                <CardDescription>{plant.commonName}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <img
+                  className="h-48 w-full rounded-md object-cover"
+                  src={plant.image || placeholder}
+                  alt={plant.commonName}
+                />
+                <p className="truncate">{plant.description}</p>
+              </CardContent>
+              <CardFooter>
+                <p>{plant.scientificName}</p>
+              </CardFooter>
             </Link>
-          </li>
+          </Card>
         ))}
       </ul>
     </main>

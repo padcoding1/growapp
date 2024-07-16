@@ -6,7 +6,6 @@ import Garden from "./components/Garden";
 import SignupForm from "./components/SignupForm";
 import SigninForm from "./components/SigninForm";
 import PlantDetails from "./components/PlantDetails";
-import PlantForm from "./components/PlantForm";
 import SearchPlant from "./components/SearchPlant";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
@@ -65,18 +64,17 @@ const App = () => {
               <Route path="/plants" element={<Garden plants={plants} />} />
               <Route
                 path="/plants/:plantId"
-                element={<PlantDetails handleDeletePlant={handleDeletePlant} />}
+                element={
+                  <PlantDetails
+                    handleDeletePlant={handleDeletePlant}
+                    handleUpdatePlant={handleUpdatePlant}
+                  />
+                }
               />
               <Route
-                path="/plants/:plantId/edit"
-                element={<PlantForm handleUpdatePlant={handleUpdatePlant} />}
+                path="/plants/search"
+                element={<SearchPlant handleCreatePlant={handleCreatePlant} />}
               />
-              <Route
-                path="/plants/:plantId/create"
-                element={<PlantForm handleCreatePlant={handleCreatePlant} />}
-              />
-
-              <Route path="/plants/search" element={<SearchPlant />} />
             </>
           ) : (
             <Route path="/" element={<Landing />} />

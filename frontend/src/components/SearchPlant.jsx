@@ -1,8 +1,28 @@
 import * as plantService from "../services/plantService";
+import placeholder from "../assets/placeholder.png";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { Label } from "./ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import PlantForm from "./PlantForm";
 
-function SearchPlant() {
+function SearchPlant(props) {
   const [formData, setFormData] = useState({
     search: "",
   });
@@ -23,43 +43,73 @@ function SearchPlant() {
   return (
     <>
       <main className="mx-4">
-        <h1>Search Plant</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="search">Search</label>
-          <input
-            type="text"
-            id="search"
-            name="search"
-            onChange={handleChange}
-            value={formData.search}
-          />
-          <button>Search</button>
-        </form>
-
-        <ul className="flex flex-wrap">
-          {searchResults.length > 0 &&
-            searchResults.map((plant) => (
-              <li
-                className="m-2 flex h-96 w-80 flex-col overflow-clip rounded-md border-2 border-black p-4"
-                key={plant.id}
-              >
-                <Link to={`/plants/${plant.id}/create`}>
-                  <h2 className="my-2 text-2xl">{plant.common_name}</h2>
-                  <h3 className="relative top-64 my-2 text-xl text-white">
-                    {plant.scientific_name}
-                  </h3>
-                  <img
-                    className="size-64"
-                    src={plant.default_image?.regular_url}
-                    alt={plant.common_name}
-                  />
-                  <p>Watering Frequency: {plant.wateringFrequency}</p>
-                  <p>Sunlight: {plant.sunlight}</p>
-                  <p>{plant.description}</p>
-                </Link>
-              </li>
-            ))}
-        </ul>
+        <h1 className="m-8 text-center text-4xl font-semibold text-green-600">
+          Search Plants
+        </h1>
+        <div className="flex h-full w-full flex-col items-center justify-center">
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-1/3 items-center justify-center gap-8"
+          >
+            <Label htmlFor="search" className="sr-only">
+              Search
+            </Label>
+            <Input
+              type="text"
+              id="search"
+              name="search"
+              onChange={handleChange}
+              value={formData.search}
+              placeholder="Search for a plant"
+            />
+            <Button>Search</Button>
+          </form>
+          <ul className="flex flex-wrap justify-center gap-8 p-8">
+            {searchResults.length > 0 ? (
+              searchResults.map((plant) => (
+                <Card
+                  className="h-96 w-96 overflow-hidden text-green-600 shadow-md"
+                  key={plant.id}
+                >
+                  <CardHeader>
+                    <CardTitle>{plant.common_name}</CardTitle>
+                    <CardDescription>{plant.scientific_name}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <img
+                      className="h-48 w-full rounded-md object-cover"
+                      src={plant.default_image?.regular_url || placeholder}
+                      alt={plant.common_name}
+                    />
+                    <p className="truncate">{plant.family_common_name}</p>
+                  </CardContent>
+                  <CardFooter className="flex justify-between">
+                    <p>{plant.scientific_name}</p>
+                    <Dialog>
+                      <DialogTrigger>
+                        <Button>Add</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Add to plants</DialogTitle>
+                          <DialogDescription>
+                            Add this plant to your garden
+                          </DialogDescription>
+                        </DialogHeader>
+                        <PlantForm
+                          handleCreatePlant={props.handleCreatePlant}
+                          plantId={plant.id}
+                        />
+                      </DialogContent>
+                    </Dialog>
+                  </CardFooter>
+                </Card>
+              ))
+            ) : (
+              <p className="m-24 text-lg text-green-600">No results found</p>
+            )}
+          </ul>
+        </div>
       </main>
     </>
   );
