@@ -1,7 +1,9 @@
-import { useParallax, Parallax } from "react-scroll-parallax";
-import { motion, useScroll } from "framer-motion";
+import { Parallax } from "react-scroll-parallax";
+import { useRef } from "react";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Link } from "react-router-dom";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -9,6 +11,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 import houseplant from "../assets/houseplant.jpg";
 import houseplant2 from "../assets/houseplant2.jpg";
 import houseplant3 from "../assets/houseplant3.jpg";
@@ -21,7 +29,6 @@ import plant5 from "../assets/carouselplant5.png";
 
 const Landing = () => {
   const carouselImages = [plant1, plant2, plant3, plant4, plant5];
-
   return (
     <main>
       <div className="my-24 flex h-96 w-full items-center justify-between gap-4 px-8">
@@ -56,7 +63,7 @@ const Landing = () => {
           </div>
         </section>
       </Parallax>
-      <section className="h-[900px]">
+      <section className="h-[1000px]">
         <motion.div
           className="flex items-center justify-between gap-4 p-8"
           initial={{ opacity: 0 }}
@@ -78,7 +85,7 @@ const Landing = () => {
       <section>
         <Parallax
           speed={-10}
-          className="flex h-[500px] flex-col items-center justify-center gap-8 bg-green-600"
+          className="flex h-[600px] translate-y-20 flex-col items-center justify-center gap-8 bg-green-600"
         >
           <motion.h1
             initial={{ opacity: 0 }}
@@ -92,6 +99,11 @@ const Landing = () => {
             opts={{
               align: "start",
             }}
+            plugins={[
+              Autoplay({
+                delay: 2000,
+              }),
+            ]}
             className="w-2/3"
           >
             <CarouselContent>
@@ -115,6 +127,37 @@ const Landing = () => {
             <CarouselNext />
           </Carousel>
         </Parallax>
+      </section>
+      <section className="flex h-[500px] translate-y-20 flex-col items-center justify-center">
+        <h2 className="text-2xl font-semibold text-green-600">FAQ</h2>
+        <Accordion
+          type="single"
+          className="w-1/3 text-lg text-green-600"
+          id="my-section"
+          collapsible
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Is this app free?</AccordionTrigger>
+            <AccordionContent>
+              Yes. This app is completely free to use.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>How do I sign up?</AccordionTrigger>
+            <AccordionContent>
+              You can sign up by clicking the "Sign up" button at the top of the
+              page.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>How do I add a plant?</AccordionTrigger>
+            <AccordionContent>
+              You can add a plant by clicking the "Add plant" button on the
+              dashboard, searching for the plant you want to add, and clicking
+              on the plant to add it to your collection.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
     </main>
   );

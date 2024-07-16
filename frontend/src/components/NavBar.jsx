@@ -38,6 +38,18 @@ const NavBar = ({ handleSignout }) => {
               <li className="transition-all hover:scale-105">
                 <Link to="/signup">Sign Up</Link>
               </li>
+              <li>
+                <button
+                  onClick={() => {
+                    const element = document.getElementById("my-section");
+                    element?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                  }}
+                >
+                  FAQ
+                </button>
+              </li>
             </ul>
           </nav>
         )}
