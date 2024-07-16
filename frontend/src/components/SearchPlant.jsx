@@ -86,7 +86,7 @@ function SearchPlant(props) {
                   <CardFooter className="flex justify-between">
                     <p>{plant.scientific_name}</p>
                     <Dialog>
-                      <DialogTrigger>
+                      <DialogTrigger asChild>
                         <Button>Add</Button>
                       </DialogTrigger>
                       <DialogContent>

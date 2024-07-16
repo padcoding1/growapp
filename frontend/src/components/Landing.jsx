@@ -30,7 +30,11 @@ const Landing = () => {
   const carouselImages = [plant1, plant2, plant3, plant4, plant5];
   return (
     <main>
-      <div className="my-24 flex h-96 w-full items-center justify-between gap-4 px-8">
+      <motion.section
+        className="my-24 flex h-96 w-full items-center justify-between gap-4 px-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+      >
         <h1 className="w-1/2 text-center text-2xl font-semibold text-green-600 sm:text-6xl">
           Take care of your plants the right way.
         </h1>
@@ -43,9 +47,13 @@ const Landing = () => {
           />
           <img src={houseplant3} alt="houseplant" className="h-full w-full" />
         </div>
-      </div>
+      </motion.section>
       <Parallax speed={20}>
-        <section className="flex h-[400px] flex-col items-center justify-center bg-green-600 p-8 text-white shadow-lg">
+        <motion.section
+          className="flex h-[400px] flex-col items-center justify-center bg-green-600 p-8 text-white shadow-lg"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+        >
           <h2 className="text-center text-2xl font-semibold">
             Get started with GrowApp today!
           </h2>
@@ -60,7 +68,7 @@ const Landing = () => {
               </button>
             </Link>
           </div>
-        </section>
+        </motion.section>
       </Parallax>
       <section className="h-[800px]">
         <motion.div
@@ -81,19 +89,18 @@ const Landing = () => {
           </div>
         </motion.div>
       </section>
-      <section>
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         <Parallax
           speed={20}
           className="flex h-[600px] flex-col items-center justify-center gap-8 bg-green-600"
         >
-          <motion.h1
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="text-3xl text-white"
-          >
+          <h1 className="text-3xl text-white">
             Add plants to your collection!
-          </motion.h1>
+          </h1>
           <Carousel
             opts={{
               align: "start",
@@ -126,8 +133,12 @@ const Landing = () => {
             <CarouselNext />
           </Carousel>
         </Parallax>
-      </section>
-      <section className="flex h-[500px] translate-y-20 flex-col items-center justify-center">
+      </motion.section>
+      <motion.section
+        className="flex h-[500px] translate-y-20 flex-col items-center justify-center"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+      >
         <h2 className="text-2xl font-semibold text-green-600">FAQ</h2>
         <Accordion
           type="single"
@@ -157,7 +168,7 @@ const Landing = () => {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      </section>
+      </motion.section>
     </main>
   );
 };
