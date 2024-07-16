@@ -1,12 +1,27 @@
 import { useParallax, Parallax } from "react-scroll-parallax";
 import { motion, useScroll } from "framer-motion";
+import { Card, CardContent } from "./ui/card";
 import { Link } from "react-router-dom";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
 import houseplant from "../assets/houseplant.jpg";
 import houseplant2 from "../assets/houseplant2.jpg";
 import houseplant3 from "../assets/houseplant3.jpg";
 import weeds from "../assets/weeds.png";
+import plant1 from "../assets/carouselplant1.png";
+import plant2 from "../assets/carouselplant2.png";
+import plant3 from "../assets/carouselplant3.png";
+import plant4 from "../assets/carouselplant4.png";
+import plant5 from "../assets/carouselplant5.png";
 
 const Landing = () => {
+  const carouselImages = [plant1, plant2, plant3, plant4, plant5];
+
   return (
     <main>
       <div className="my-24 flex h-96 w-full items-center justify-between gap-4 px-8">
@@ -61,7 +76,45 @@ const Landing = () => {
         </motion.div>
       </section>
       <section>
-        <Parallax speed={-10} className="h-[600px] bg-green-600"></Parallax>
+        <Parallax
+          speed={-10}
+          className="flex h-[500px] flex-col items-center justify-center gap-8 bg-green-600"
+        >
+          <motion.h1
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-3xl text-white"
+          >
+            Add plants to your collection!
+          </motion.h1>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-2/3"
+          >
+            <CarouselContent>
+              {carouselImages.map((image, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-2">
+                        <img
+                          src={image}
+                          alt="houseplant"
+                          className="h-full w-full"
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </Parallax>
       </section>
     </main>
   );
