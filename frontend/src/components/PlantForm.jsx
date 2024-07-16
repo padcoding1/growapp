@@ -42,10 +42,12 @@ function PlantForm(props) {
     <>
       <main className="flex flex-col items-center justify-center">
         <form
-          className="flex w-full max-w-96 items-center gap-8"
+          className="flex w-full items-center gap-4"
           onSubmit={handleSubmit}
         >
-          <Label htmlFor="userPlantName">Name</Label>
+          <Label htmlFor="userPlantName" className="sr-only">
+            Name
+          </Label>
           <Input
             required
             type="text"
@@ -53,6 +55,7 @@ function PlantForm(props) {
             name="userPlantName"
             value={formData.userPlantName}
             onChange={handleChange}
+            placeholder="Plant Name"
           />
           <DialogClose asChild>
             <Button>{props.handleCreatePlant ? "Add" : "Update"}</Button>

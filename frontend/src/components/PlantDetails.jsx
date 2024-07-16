@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "./ui/dialog";
 
 function PlantDetails(props) {

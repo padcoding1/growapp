@@ -11,7 +11,7 @@ const NavBar = ({ handleSignout }) => {
           <h1 className="text-4xl font-semibold">GrowApp</h1>
         </Link>
         {user ? (
-          <nav>
+          <nav className="text-lg">
             <ul className="flex gap-4">
               <li className="transition-all hover:scale-105">
                 <Link to="/">Home</Link>
@@ -30,7 +30,7 @@ const NavBar = ({ handleSignout }) => {
             </ul>
           </nav>
         ) : (
-          <nav>
+          <nav className="text-lg">
             <ul className="flex gap-4">
               <li className="transition-all hover:scale-105">
                 <Link to="/signin">Log In</Link>

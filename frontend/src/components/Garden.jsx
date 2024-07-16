@@ -12,7 +12,7 @@ import placeholder from "../assets/placeholder.png";
 function Garden(props) {
   return (
     <main className="mx-4">
-      <h1 className="m-4 text-4xl font-semibold text-green-600">Garden</h1>
+      <h1 className="m-8 text-4xl font-semibold text-green-600">Garden</h1>
       <ul className="flex flex-wrap justify-center gap-8">
         {props.plants.map((plant) => (
           <Card
