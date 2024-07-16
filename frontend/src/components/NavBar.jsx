@@ -6,9 +6,9 @@ const NavBar = ({ handleSignout }) => {
   const user = useContext(AuthedUserContext);
   return (
     <>
-      <div className="flex items-center justify-between border-b-2 p-4 text-green-600 shadow-md">
+      <div className="flex items-center justify-between border-b-2 px-4 py-6 text-green-600 shadow-md">
         <Link to="/">
-          <h1 className="text-3xl font-semibold">GrowApp</h1>
+          <h1 className="text-4xl font-semibold">GrowApp</h1>
         </Link>
         {user ? (
           <nav>

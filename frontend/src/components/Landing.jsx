@@ -1,5 +1,4 @@
 import { Parallax } from "react-scroll-parallax";
-import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Link } from "react-router-dom";

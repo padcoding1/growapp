@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import * as plantService from "../services/plantService";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { Label } from "./ui/label";
+import { DialogClose } from "./ui/dialog";
 
 function PlantForm(props) {
-  const { plantId } = useParams();
+  const plantId = props.plantId;
 
   const [formData, setFormData] = useState({
     userPlantName: "",
@@ -27,6 +30,7 @@ function PlantForm(props) {
       props.handleUpdatePlant(plantId, {
         userPlantName: event.target.userPlantName.value,
       });
+      setFormData({ userPlantName: "" });
     } else {
       props.handleCreatePlant({
         userPlantName: event.target.userPlantName.value,
@@ -36,18 +40,25 @@ function PlantForm(props) {
   };
   return (
     <>
-      <h1>{props.handleCreatePlant ? "Add plant" : "Update plant"}</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="userPlantName">Name</label>
-        <input
-          type="text"
-          id="userPlantName"
-          name="userPlantName"
-          value={formData.userPlantName}
-          onChange={handleChange}
-        />
-        <button>{props.handleCreatePlant ? "Add" : "Update"}</button>
-      </form>
+      <main className="flex flex-col items-center justify-center">
+        <form
+          className="flex w-full max-w-96 items-center gap-8"
+          onSubmit={handleSubmit}
+        >
+          <Label htmlFor="userPlantName">Name</Label>
+          <Input
+            required
+            type="text"
+            id="userPlantName"
+            name="userPlantName"
+            value={formData.userPlantName}
+            onChange={handleChange}
+          />
+          <DialogClose asChild>
+            <Button>{props.handleCreatePlant ? "Add" : "Update"}</Button>
+          </DialogClose>
+        </form>
+      </main>
     </>
   );
 }
