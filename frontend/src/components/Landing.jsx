@@ -1,9 +1,10 @@
 import { useParallax, Parallax } from "react-scroll-parallax";
+import { motion, useScroll } from "framer-motion";
 import { Link } from "react-router-dom";
 import houseplant from "../assets/houseplant.jpg";
 import houseplant2 from "../assets/houseplant2.jpg";
 import houseplant3 from "../assets/houseplant3.jpg";
-import weeds from "../assets/weed-leaves-pattern.jpg";
+import weeds from "../assets/weeds.png";
 
 const Landing = () => {
   return (
@@ -23,7 +24,7 @@ const Landing = () => {
         </div>
       </div>
       <Parallax speed={-10}>
-        <section className="flex h-[400px] flex-col items-center justify-center bg-green-600 p-8 text-white shadow-md">
+        <section className="flex h-[400px] flex-col items-center justify-center bg-green-600 p-8 text-white shadow-lg">
           <h2 className="text-center text-2xl font-semibold">
             Get started with GrowApp today!
           </h2>
@@ -40,10 +41,15 @@ const Landing = () => {
           </div>
         </section>
       </Parallax>
-      <section>
-        <div className="flex items-center justify-between gap-4 p-8">
+      <section className="h-[900px]">
+        <motion.div
+          className="flex items-center justify-between gap-4 p-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        >
           <img src={weeds} alt="houseplant" className="h-[700px] w-1/2" />
-          <div className="w-1/2">
+          <div>
             <h2 className="text-2xl font-semibold text-green-600 sm:text-4xl">
               Keep track of your plants
             </h2>
@@ -52,7 +58,10 @@ const Landing = () => {
               information about your plants' watering and sunlight needs.
             </p>
           </div>
-        </div>
+        </motion.div>
+      </section>
+      <section>
+        <Parallax speed={-10} className="h-[600px] bg-green-600"></Parallax>
       </section>
     </main>
   );
