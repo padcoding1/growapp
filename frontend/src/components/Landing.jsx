@@ -44,7 +44,7 @@ const Landing = () => {
           <img src={houseplant3} alt="houseplant" className="h-full w-full" />
         </div>
       </div>
-      <Parallax speed={-10}>
+      <Parallax speed={20}>
         <section className="flex h-[400px] flex-col items-center justify-center bg-green-600 p-8 text-white shadow-lg">
           <h2 className="text-center text-2xl font-semibold">
             Get started with GrowApp today!
@@ -62,7 +62,7 @@ const Landing = () => {
           </div>
         </section>
       </Parallax>
-      <section className="h-[1000px]">
+      <section className="h-[800px]">
         <motion.div
           className="flex items-center justify-between gap-4 p-8"
           initial={{ opacity: 0 }}
@@ -83,8 +83,8 @@ const Landing = () => {
       </section>
       <section>
         <Parallax
-          speed={-10}
-          className="flex h-[600px] translate-y-20 flex-col items-center justify-center gap-8 bg-green-600"
+          speed={20}
+          className="flex h-[600px] flex-col items-center justify-center gap-8 bg-green-600"
         >
           <motion.h1
             initial={{ opacity: 0 }}
