@@ -57,17 +57,15 @@ function Garden(props) {
     }
   });
 
-  console.log(upcomingTasks);
-
   return (
-    <main className="m-8">
+    <main className="m-4">
       <div className="flex">
-        <div className="w-2/3 border-r-2 border-green-600 p-4">
-          <h1 className="m-8 text-4xl font-semibold text-green-600">Garden</h1>
+        <div className="w-2/3 p-4">
+          <h1 className="my-8 text-4xl font-semibold text-green-600">Garden</h1>
           <ul className="flex flex-wrap justify-center gap-8">
             {props.plants.map((plant) => (
               <Card
-                className="h-96 w-96 overflow-hidden text-green-600 shadow-md"
+                className="h-96 w-80 overflow-hidden text-green-600 shadow-md"
                 key={plant._id}
               >
                 <Link to={`/plants/${plant._id}`}>
@@ -91,74 +89,83 @@ function Garden(props) {
             ))}
           </ul>
         </div>
-        <div className="w-1/3 p-4">
-          <h1 className="m-8 text-4xl font-semibold text-green-600">
-            Upcoming Tasks
+        <div className="flex w-1/3 flex-col p-4">
+          <h1 className="my-8 text-4xl font-semibold text-green-600">
+            Upcoming Tasks Today
           </h1>
-          <ScrollArea className="w-full rounded-md border p-4">
+          <ScrollArea className="h-[600px] w-full rounded-md border p-4 shadow-md">
             <ul className="flex flex-wrap justify-center gap-8">
+              {upcomingTasks && upcomingTasks.length === 0 && (
+                <p className="my-24 text-lg font-semibold text-green-600">
+                  There are no tasks today.
+                </p>
+              )}
               {upcomingTasks.map((task) => (
-                <li key={task._id}>
-                  <Card className="h-48 w-96 text-green-600 shadow-md">
+                <Link
+                  to={`/plants/${task.plant}`}
+                  key={task._id}
+                  className="h-48 w-full rounded-md text-green-600 shadow-md"
+                >
+                  <Card className="h-full text-green-600">
                     <CardHeader>
                       <CardTitle>{task.name}</CardTitle>
                       <CardDescription>{task.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p>{task.interval}</p>
                       <p>{task.timeOfDay}</p>
                     </CardContent>
                     <CardFooter className="text-xs">
                       Created at {new Date(task.createdAt).toLocaleString()}
                     </CardFooter>
                   </Card>
+                </Link>
+              ))}
+            </ul>
+          </ScrollArea>
+          <h1 className="my-8 text-4xl font-semibold text-green-600">Notes</h1>
+
+          <ScrollArea className="h-[600px] w-full rounded-md border p-4 shadow-md">
+            <ul className="h-full">
+              {props.comments && props.comments.length === 0 && (
+                <p className="my-24 text-center text-lg font-semibold text-green-600">
+                  There are no notes.
+                </p>
+              )}
+
+              {props.comments.map((comment) => (
+                <li
+                  key={comment._id}
+                  className="my-2 flex h-24 items-center justify-between rounded-md border p-4 text-green-600 shadow-md"
+                >
+                  <p className="w-1/3">{comment.text}</p>
+                  <p className="text-xs">
+                    Created at{" "}
+                    {new Date(comment.createdAt).toLocaleString().split(",")[0]}
+                  </p>
+                  <Button
+                    onClick={() => props.handleDeleteComment(comment._id)}
+                  >
+                    Delete
+                  </Button>
                 </li>
               ))}
             </ul>
           </ScrollArea>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="m-2 w-24 self-center">Add Note</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add Note</DialogTitle>
+                <DialogDescription>
+                  Add a note on how your garden is doing!
+                </DialogDescription>
+              </DialogHeader>
+              <CommentForm handleAddComment={props.handleAddComment} />
+            </DialogContent>
+          </Dialog>
         </div>
-      </div>
-      <section>
-        <h1>Notes</h1>
-
-        {!props.comments.length && <p>There are no comments.</p>}
-
-        {props.comments.map((comment) => (
-          <article key={comment._id}>
-            <header></header>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Link>{comment.text}</Link>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Edit Note</DialogTitle>
-                  <DialogDescription>{comment.text}</DialogDescription>
-                  <DialogDescription>{comment.createdAt}</DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
-          </article>
-        ))}
-      </section>
-      <div className="flex w-full justify-between">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Add Note</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Note</DialogTitle>
-              <DialogDescription>
-                Add a note on how your garden is doing!
-              </DialogDescription>
-            </DialogHeader>
-            <CommentForm handleAddComment={props.handleAddComment} />
-          </DialogContent>
-        </Dialog>
-        <Button onClick={() => props.handleDeleteComment(props.comment)}>
-          Delete
-        </Button>
       </div>
     </main>
   );

@@ -1,22 +1,5 @@
 const mongoose = require("mongoose");
 
-const settingsSchema = new mongoose.Schema({
-  location: {
-    type: String,
-    required: true,
-  },
-  measureUnits: {
-    type: String,
-    required: true,
-    enum: ["metric", "imperial"],
-  },
-  tempUnits: {
-    type: String,
-    required: true,
-    enum: ["C", "F"],
-  },
-});
-
 const plantsSchema = new mongoose.Schema(
   {
     userPlantName: {
@@ -66,7 +49,7 @@ const commentsSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 const taskSchema = new mongoose.Schema(
@@ -90,7 +73,7 @@ const taskSchema = new mongoose.Schema(
     },
     plant: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "plantSchema",
+      ref: "Plant",
     },
   },
   { timestamps: true }
@@ -108,7 +91,6 @@ const userSchema = new mongoose.Schema({
   },
   tasks: [taskSchema],
   comments: [commentsSchema],
-  settings: [settingsSchema],
   plants: [plantsSchema],
 });
 

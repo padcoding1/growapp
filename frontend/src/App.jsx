@@ -83,10 +83,8 @@ const App = () => {
   };
 
   const handleDeleteComment = async (commentId) => {
-    const deletedComment = await commentService.deleteComment(commentId);
-    setComments(
-      comments.filter((comment) => comment._id !== deletedComment._id),
-    );
+    await commentService.deleteComment(commentId);
+    setComments(comments.filter((comment) => comment._id !== commentId));
   };
 
   const handleUpdateComment = async (commentId, commentFormData) => {

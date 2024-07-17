@@ -8,7 +8,7 @@ const create = async (req, res) => {
     };
     user.comments.push(comment);
     await user.save();
-    res.status(201).json(comment);
+    res.status(201).json(user.comments[user.comments.length - 1]);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
