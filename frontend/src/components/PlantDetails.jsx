@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as plantService from "../services/plantService";
 import placeholder from "../assets/placeholder.png";
-import { Button } from "./ui/button";
 import PlantForm from "./PlantForm";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
