@@ -18,6 +18,11 @@ This is an app you can use to track plants you have in your garden, and schedule
 
 - Some images were sourced from [Unsplash](https://unsplash.com/).
 
+### Contributors
+
+- [Phillip Dillon](https://github.com/padcoding1)
+- [Menachem Lemmer](https://github.com/menachemlemmer)
+
 ### Technologies Used
 
 #### Languages
