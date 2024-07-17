@@ -69,29 +69,32 @@ const commentsSchema = new mongoose.Schema(
   { timeStamps: true }
 );
 
-const taskSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const taskSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    interval: {
+      type: String,
+      required: true,
+      enum: ["daily", "biweekly", "weekly", "monthly"],
+    },
+    timeOfDay: {
+      type: String,
+      required: true,
+      enum: ["morning", "afternoon", "evening"],
+    },
+    plant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "plantSchema",
+    },
   },
-  description: {
-    type: String,
-  },
-  interval: {
-    type: String,
-    required: true,
-    enum: ["daily", "biweekly", "weekly", "monthly"],
-  },
-  timeOfDay: {
-    type: String,
-    required: true,
-    enum: ["morning", "afternoon", "evening"],
-  },
-  plant: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "plantSchema",
-  },
-});
+  { timestamps: true }
+);
 
 const userSchema = new mongoose.Schema({
   username: {
