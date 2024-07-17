@@ -98,6 +98,20 @@ const App = () => {
     navigate("/plants");
   };
 
+  const handleDeleteTask = async (taskId) => {
+    await taskService.deleteTask(taskId);
+    setTasks(tasks.filter((task) => task._id !== taskId));
+  };
+
+  const handleUpdateTask = async (taskId, taskFormData) => {
+    const updatedTask = await taskService.updateTask(taskId, taskFormData);
+    setTasks(
+      tasks.map((task) => (task._id === updatedTask._id ? updatedTask : task)),
+    );
+
+    navigate("/plants");
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -118,6 +132,9 @@ const App = () => {
                   <PlantDetails
                     handleDeletePlant={handleDeletePlant}
                     handleUpdatePlant={handleUpdatePlant}
+                    tasks={tasks}
+                    handleDeleteTask={handleDeleteTask}
+                    handleUpdateTask={handleUpdateTask}
                   />
                 }
               />

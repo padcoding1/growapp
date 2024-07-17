@@ -4,13 +4,6 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { DialogClose } from "./ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 
 function TaskForm(props) {
   const taskId = props.taskId;
@@ -18,8 +11,8 @@ function TaskForm(props) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    interval: "",
-    timeOfDay: "",
+    interval: "interval",
+    timeOfDay: "timeOfDay",
   });
 
   useEffect(() => {
@@ -45,7 +38,7 @@ function TaskForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (props.handleUpdateTask) {
-      props.handleUpdateTask(taskId, { formData });
+      props.handleUpdateTask(taskId, formData);
       setFormData({
         name: "",
         description: "",
@@ -66,7 +59,7 @@ function TaskForm(props) {
     <>
       <main className="flex flex-col items-center justify-center">
         <form
-          className="flex w-full items-center gap-4"
+          className="flex w-full flex-col items-center gap-4"
           onSubmit={handleSubmit}
         >
           <Label htmlFor="name" className="sr-only">
@@ -93,27 +86,35 @@ function TaskForm(props) {
             onChange={handleChange}
             placeholder="Task Description"
           />
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Interval" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="daily">Daily</SelectItem>
-              <SelectItem value="biweekly">Biweekly</SelectItem>
-              <SelectItem value="weekly">Weekly</SelectItem>
-              <SelectItem value="monthly">Monthly</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Time of Day" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="morning">Morning</SelectItem>
-              <SelectItem value="afternoon">Afternoon</SelectItem>
-              <SelectItem value="evening">Evening</SelectItem>
-            </SelectContent>
-          </Select>
+
+          <select
+            className="w-1/2 rounded-md border border-gray-300 bg-white p-2 text-gray-500"
+            name="interval"
+            id="interval"
+            onChange={handleChange}
+            value={formData.interval}
+          >
+            <option className="" value="interval">
+              Interval
+            </option>
+            <option value="daily">Daily</option>
+            <option value="biweekly">Biweekly</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+          <select
+            className="w-1/2 rounded-md border border-gray-300 bg-white p-2 text-gray-500"
+            name="timeOfDay"
+            id="timeOfDay"
+            onChange={handleChange}
+            value={formData.timeOfDay}
+          >
+            <option value="timeOfDay">Time of Day</option>
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
+          </select>
+
           <DialogClose asChild>
             <Button type="submit">Submit</Button>
           </DialogClose>

@@ -55,9 +55,7 @@ async function updateTask(taskId, taskFormData) {
       },
       body: JSON.stringify(taskFormData),
     });
-
-    const response = await res.json();
-    return response;
+    return res.json();
   } catch (error) {
     console.log(error);
   }

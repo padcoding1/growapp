@@ -4,6 +4,7 @@ import * as plantService from "../services/plantService";
 import placeholder from "../assets/placeholder.png";
 import { Button } from "./ui/button";
 import PlantForm from "./PlantForm";
+import TaskForm from "./TaskForm";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 function PlantDetails(props) {
   const { plantId } = useParams();
@@ -56,6 +65,7 @@ function PlantDetails(props) {
               </p>
               <p>{plant.sunlightInfo}</p>
             </div>
+
             <div className="flex w-full justify-between">
               <Dialog>
                 <DialogTrigger asChild>
@@ -77,6 +87,65 @@ function PlantDetails(props) {
               <Button onClick={() => props.handleDeletePlant(plantId)}>
                 Delete
               </Button>
+            </div>
+            <div className="w-full">
+              <h3 className="m-4 text-center text-4xl font-semibold text-green-600">
+                Tasks
+              </h3>
+              {props.tasks.filter((task) => task.plant === plant._id).length ===
+              0 ? (
+                <p className="mt-8 text-center font-semibold text-green-600">
+                  No tasks for this plant
+                </p>
+              ) : (
+                <></>
+              )}
+
+              <ul className="flex flex-col items-center gap-4">
+                {props.tasks
+                  .filter((task) => task.plant === plant._id)
+                  .map((task) => (
+                    <Card
+                      key={task._id}
+                      className="w-96 overflow-hidden text-center text-green-600 shadow-md"
+                    >
+                      <CardHeader>
+                        <CardTitle>{task.name}</CardTitle>
+                        <CardDescription>{task.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Interval: {task.interval}</p>
+                        <p>Time of Day: {task.timeOfDay}</p>
+                      </CardContent>
+                      <CardFooter>
+                        <div className="flex w-full justify-between">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button>Update</Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Update Task</DialogTitle>
+                                <DialogDescription>
+                                  Update the task for your plant
+                                </DialogDescription>
+                              </DialogHeader>
+                              <TaskForm
+                                handleUpdateTask={props.handleUpdateTask}
+                                taskId={task._id}
+                              />
+                            </DialogContent>
+                          </Dialog>
+                          <Button
+                            onClick={() => props.handleDeleteTask(task._id)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  ))}
+              </ul>
             </div>
           </div>
         )}

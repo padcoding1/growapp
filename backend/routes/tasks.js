@@ -14,4 +14,6 @@ router.put("/:taskId", taskCtrl.update);
 
 router.delete("/:taskId", taskCtrl.delete);
 
+router.get("/:taskId", taskCtrl.showTask);
+
 module.exports = router;
