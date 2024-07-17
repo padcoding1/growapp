@@ -63,4 +63,15 @@ async function updateTask(taskId, taskFormData) {
   }
 }
 
-export { index, createTask, deleteTask, updateTask };
+const showTask = async (taskId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${taskId}`, {
+      headers: { Authorization: `Bearer: ${localStorage.getItem("token")}` },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, createTask, deleteTask, updateTask, showTask };

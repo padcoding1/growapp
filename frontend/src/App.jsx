@@ -9,6 +9,7 @@ import PlantDetails from "./components/PlantDetails";
 import SearchPlant from "./components/SearchPlant";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
+import * as taskService from "../src/services/taskService";
 import * as commentService from "../src/services/commentService";
 export const AuthedUserContext = createContext(null);
 
@@ -16,6 +17,7 @@ const App = () => {
   const [user, setUser] = useState(authService.getUser());
   const [plants, setPlants] = useState([]);
   const [comments, setComments] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
 
   const handleSignout = () => {
@@ -27,35 +29,22 @@ const App = () => {
     const fetchPlants = async () => {
       const plants = await plantService.index();
       setPlants(plants);
-      const date = new Date();
-
-      const daysOfWeek = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      const currentDayOfWeek = daysOfWeek[date.getDay()];
-
-      const currentTime = date.toLocaleTimeString();
-
-      console.log(
-        `Today is ${currentDayOfWeek} and the time is ${currentTime}`,
-      );
     };
 
     const fetchComment = async () => {
-      console.log("garden.jsx - useEffect: fetchComment");
       const comments = await commentService.index();
       setComments(comments);
+    };
+
+    const fetchTasks = async () => {
+      const tasks = await taskService.index();
+      setTasks(tasks);
     };
 
     if (user) {
       fetchPlants();
       fetchComment();
+      fetchTasks();
     }
   }, [user]);
 
@@ -103,6 +92,12 @@ const App = () => {
     });
   };
 
+  const handleCreateTask = async (taskFormData) => {
+    const newTask = await taskService.createTask(taskFormData);
+    setTasks([...tasks, newTask]);
+    navigate("/plants");
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -113,7 +108,9 @@ const App = () => {
               <Route path="/" element={<Landing />} />
               <Route
                 path="/plants"
-                element={<Garden plants={plants} comments={comments} />}
+                element={
+                  <Garden plants={plants} comments={comments} tasks={tasks} />
+                }
               />
               <Route
                 path="/plants/:plantId"
