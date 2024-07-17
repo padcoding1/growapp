@@ -30,7 +30,6 @@ const App = () => {
     };
 
     const fetchComments = async () => {
-      console.log("garden.jsx - useEffect: fetchComment");
       const comments = await commentService.index();
       setComments(comments);
     };

@@ -39,7 +39,6 @@ const CommentForm = (props) => {
   if (commentId)
     return (
       <main>
-        {/* className={styles.container}> */}
         <form onSubmit={handleSubmit}>
           <h1>Edit Comment</h1>
           <label htmlFor="text-input">Your comment:</label>
@@ -71,12 +70,12 @@ const CommentForm = (props) => {
             type="text"
             name="text"
             id="text-input"
-            placeholder="Today I talked to my plants... etc."
             value={formData.text}
             onChange={handleChange}
+            placeholder="Today I talked to my plants... etc."
           />
           <DialogClose asChild>
-            <Button>{props.handleAddComment}Add</Button>
+            <Button type="submit">Add</Button>
           </DialogClose>
         </form>
       </main>

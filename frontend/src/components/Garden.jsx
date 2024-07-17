@@ -1,6 +1,5 @@
-import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import * as commentService from "../services/commentService";
+import { Link } from "react-router-dom";
+
 import CommentForm from "./CommentForm";
 import {
   Card,
@@ -24,6 +23,10 @@ import placeholder from "../assets/placeholder.png";
 
 function Garden(props) {
   return (
+    <>
+
+
+
     <main className="mx-4">
       <h1 className="m-8 text-4xl font-semibold text-green-600">Garden</h1>
       <ul className="flex flex-wrap justify-center gap-8">
@@ -60,11 +63,6 @@ function Garden(props) {
         {props.comments.map((comment) => (
           <article key={comment._id}>
             <header>
-              <div>
-                {/* <button onClick={() => handleDeleteComment(comment._id)}>
-                  Delete Comment
-                </button> */}
-              </div>
             </header>
             <Dialog>
               <DialogTrigger asChild>
@@ -76,10 +74,6 @@ function Garden(props) {
                   <DialogDescription>{comment.text}</DialogDescription>
                   <DialogDescription>{comment.createdAt}</DialogDescription>
                 </DialogHeader>
-                {/* <CommentForm
-                    handleAddComment={props.handleAddComment}
-                    // plantId={plant._id}
-                  /> */}
               </DialogContent>
             </Dialog>
           </article>
@@ -99,7 +93,6 @@ function Garden(props) {
             </DialogHeader>
             <CommentForm
               handleAddComment={props.handleAddComment}
-              // plantId={plant._id}
             />
           </DialogContent>
         </Dialog>
@@ -108,6 +101,7 @@ function Garden(props) {
         </Button>
       </div>
     </main>
+    </>
   );
 }
 
