@@ -89,7 +89,7 @@ const taskSchema = new mongoose.Schema({
   },
   plant: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Plant",
+    ref: "plantSchema",
   },
 });
 
