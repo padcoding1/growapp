@@ -95,7 +95,6 @@ const App = () => {
   const handleCreateTask = async (taskFormData) => {
     const newTask = await taskService.createTask(taskFormData);
     setTasks([...tasks, newTask]);
-    navigate("/plants");
   };
 
   const handleDeleteTask = async (taskId) => {
@@ -135,6 +134,7 @@ const App = () => {
                     tasks={tasks}
                     handleDeleteTask={handleDeleteTask}
                     handleUpdateTask={handleUpdateTask}
+                    handleCreateTask={handleCreateTask}
                   />
                 }
               />

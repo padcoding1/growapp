@@ -16,7 +16,7 @@ const create = async (req, res) => {
     const task = req.body;
     user.tasks.push(task);
     await user.save();
-    res.status(201).json(task);
+    res.status(201).json(user.tasks[user.tasks.length - 1]);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });

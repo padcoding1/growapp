@@ -58,7 +58,9 @@ function PlantForm(props) {
             placeholder="Plant Name"
           />
           <DialogClose asChild>
-            <Button>{props.handleCreatePlant ? "Add" : "Update"}</Button>
+            <Button type="submit">
+              {props.handleCreatePlant ? "Add" : "Update"}
+            </Button>
           </DialogClose>
         </form>
       </main>

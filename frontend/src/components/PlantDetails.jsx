@@ -100,6 +100,23 @@ function PlantDetails(props) {
               ) : (
                 <></>
               )}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="my-8">Create Task</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Create Task</DialogTitle>
+                    <DialogDescription>
+                      Create a new task for your plant
+                    </DialogDescription>
+                  </DialogHeader>
+                  <TaskForm
+                    handleCreateTask={props.handleCreateTask}
+                    plantId={plant._id}
+                  />
+                </DialogContent>
+              </Dialog>
 
               <ul className="flex flex-col items-center gap-4">
                 {props.tasks
