@@ -62,6 +62,12 @@ const App = () => {
   const handleDeletePlant = async (plantId) => {
     const deletedPlant = await plantService.deletePlant(plantId);
     setPlants(plants.filter((plant) => plant._id !== deletedPlant._id));
+    for (let task of tasks) {
+      if (task.plant === plantId) {
+        await taskService.deleteTask(task._id);
+      }
+    }
+
     navigate("/plants");
   };
 

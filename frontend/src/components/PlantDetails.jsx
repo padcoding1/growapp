@@ -14,6 +14,18 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+
+import {
   Card,
   CardContent,
   CardDescription,
@@ -84,9 +96,29 @@ function PlantDetails(props) {
                   />
                 </DialogContent>
               </Dialog>
-              <Button onClick={() => props.handleDeletePlant(plantId)}>
-                Delete
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive">Delete</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Removing this plant will also remove all associated tasks
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => props.handleDeletePlant(plantId)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
             <div className="w-full">
               <h3 className="m-4 text-center text-4xl font-semibold text-green-600">
@@ -154,6 +186,7 @@ function PlantDetails(props) {
                             </DialogContent>
                           </Dialog>
                           <Button
+                            variant="destructive"
                             onClick={() => props.handleDeleteTask(task._id)}
                           >
                             Delete
