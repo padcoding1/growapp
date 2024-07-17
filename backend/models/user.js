@@ -77,6 +77,20 @@ const taskSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  interval: {
+    type: String,
+    required: true,
+    enum: ["daily", "biweekly", "weekly", "monthly"],
+  },
+  timeOfDay: {
+    type: String,
+    required: true,
+    enum: ["morning", "afternoon", "evening"],
+  },
+  plant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Plant",
+  },
 });
 
 const userSchema = new mongoose.Schema({

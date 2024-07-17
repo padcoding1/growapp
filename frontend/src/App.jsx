@@ -27,6 +27,24 @@ const App = () => {
     const fetchPlants = async () => {
       const plants = await plantService.index();
       setPlants(plants);
+      const date = new Date();
+
+      const daysOfWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const currentDayOfWeek = daysOfWeek[date.getDay()];
+
+      const currentTime = date.toLocaleTimeString();
+
+      console.log(
+        `Today is ${currentDayOfWeek} and the time is ${currentTime}`,
+      );
     };
 
     const fetchComment = async () => {
@@ -63,7 +81,6 @@ const App = () => {
     setPlants([...plants, newPlant]);
     navigate("/plants");
   };
-
 
   const handleAddComment = async (commentFormData) => {
     const newComment = await commentService.createComment(
