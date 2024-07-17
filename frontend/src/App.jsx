@@ -31,7 +31,7 @@ const App = () => {
       setPlants(plants);
     };
 
-    const fetchComment = async () => {
+    const fetchComments = async () => {
       const comments = await commentService.index();
       setComments(comments);
     };
@@ -43,8 +43,8 @@ const App = () => {
 
     if (user) {
       fetchPlants();
-      fetchComment();
       fetchTasks();
+      fetchComments();
     }
   }, [user]);
 
@@ -78,24 +78,27 @@ const App = () => {
   };
 
   const handleAddComment = async (commentFormData) => {
-    const newComment = await commentService.createComment(
-      commentId,
-      commentFormData,
-    );
-    setComment({ ...comment, comments: [...comment.comments, newComment] });
+    const newComment = await commentService.createComment(commentFormData);
+    setComments([...comments, newComment]);
   };
 
   const handleDeleteComment = async (commentId) => {
-    const deletedComment = await commentService.deleteComment(
-      commentId,
-      commentId,
+    const deletedComment = await commentService.deleteComment(commentId);
+    setComments(
+      comments.filter((comment) => comment._id !== deletedComment._id),
     );
-    setComment({
-      ...comment,
-      comments: comment.comments.filter(
-        (comment) => comment._id !== deletedComment._id,
+  };
+
+  const handleUpdateComment = async (commentId, commentFormData) => {
+    const updatedComment = await commentService.updatePlant(
+      commentId,
+      commentFormData,
+    );
+    setPlants(
+      comments.map((comment) =>
+        comment._id === updatedComment._id ? updatedComment : comment,
       ),
-    });
+    );
   };
 
   const handleCreateTask = async (taskFormData) => {
@@ -128,7 +131,14 @@ const App = () => {
               <Route
                 path="/plants"
                 element={
-                  <Garden plants={plants} comments={comments} tasks={tasks} />
+                  <Garden
+                    plants={plants}
+                    comments={comments}
+                    tasks={tasks}
+                    handleDeleteComment={handleDeleteComment}
+                    handleUpdateComment={handleUpdateComment}
+                    handleAddComment={handleAddComment}
+                  />
                 }
               />
               <Route
