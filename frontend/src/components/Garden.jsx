@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as commentService from "../services/commentService";
+import CommentForm from "./CommentForm";
 import {
   Card,
   CardContent,
@@ -10,6 +13,9 @@ import {
 import placeholder from "../assets/placeholder.png";
 
 function Garden(props) {
+ 
+
+
   return (
     <main className="mx-4">
       <h1 className="m-8 text-4xl font-semibold text-green-600">Garden</h1>
@@ -39,6 +45,25 @@ function Garden(props) {
           </Card>
         ))}
       </ul>
+      <section>
+        <h2>Comments</h2>
+        {/* <CommentForm handleAddComment={handleAddComment} /> */}
+
+        {!props.comments.length && <p>There are no comments.</p>}
+
+        {props.comments.map((comment) => (
+          <article key={comment._id}>
+            <header>
+              <div>
+                {/* <button onClick={() => handleDeleteComment(comment._id)}>
+                  Delete Comment
+                </button> */}
+              </div>
+            </header>
+            <p>{comment.text}</p>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }

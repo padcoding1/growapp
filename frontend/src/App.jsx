@@ -9,12 +9,13 @@ import PlantDetails from "./components/PlantDetails";
 import SearchPlant from "./components/SearchPlant";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
-
+import * as commentService from "../src/services/commentService";
 export const AuthedUserContext = createContext(null);
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
   const [plants, setPlants] = useState([]);
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   const handleSignout = () => {
@@ -27,7 +28,17 @@ const App = () => {
       const plants = await plantService.index();
       setPlants(plants);
     };
-    if (user) fetchPlants();
+
+    const fetchComment = async () => {
+      console.log("garden.jsx - useEffect: fetchComment");
+      const comments = await commentService.index();
+      setComments(comments);
+    };
+
+    if (user) {
+      fetchPlants();
+      fetchComment();
+    }
   }, [user]);
 
   const handleUpdatePlant = async (plantId, plantFormData) => {
@@ -53,6 +64,28 @@ const App = () => {
     navigate("/plants");
   };
 
+
+  const handleAddComment = async (commentFormData) => {
+    const newComment = await commentService.createComment(
+      commentId,
+      commentFormData,
+    );
+    setComment({ ...comment, comments: [...comment.comments, newComment] });
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    const deletedComment = await commentService.deleteComment(
+      commentId,
+      commentId,
+    );
+    setComment({
+      ...comment,
+      comments: comment.comments.filter(
+        (comment) => comment._id !== deletedComment._id,
+      ),
+    });
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -61,7 +94,10 @@ const App = () => {
           {user ? (
             <>
               <Route path="/" element={<Landing />} />
-              <Route path="/plants" element={<Garden plants={plants} />} />
+              <Route
+                path="/plants"
+                element={<Garden plants={plants} comments={comments} />}
+              />
               <Route
                 path="/plants/:plantId"
                 element={
