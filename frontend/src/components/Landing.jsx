@@ -35,9 +35,19 @@ const Landing = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
       >
-        <h1 className="w-1/2 text-center text-2xl font-semibold text-green-600 sm:text-6xl">
+        <motion.h1
+          className="w-1/2 text-center text-2xl font-semibold text-green-600 sm:text-6xl"
+          initial={{ x: -50, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{
+            type: "spring",
+            duration: 0.8,
+            bounce: 0.4,
+            stiffness: 200,
+          }}
+        >
           Take care of your plants the right way.
-        </h1>
+        </motion.h1>
         <div className="grid h-[500px] grid-cols-1 grid-rows-2 gap-4 overflow-hidden p-16 sm:grid-cols-2">
           <img src={houseplant2} alt="houseplant" className="h-full w-full" />
           <img
@@ -78,7 +88,16 @@ const Landing = () => {
           transition={{ duration: 2 }}
         >
           <img src={weeds} alt="houseplant" className="h-[700px] w-1/2" />
-          <div>
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              duration: 0.8,
+              bounce: 0.4,
+              stiffness: 200,
+            }}
+          >
             <h2 className="text-2xl font-semibold text-green-600 sm:text-4xl">
               Keep track of your plants
             </h2>
@@ -86,7 +105,7 @@ const Landing = () => {
               GrowApp helps you keep track of your plants by providing you with
               information about your plants' watering and sunlight needs.
             </p>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
       <motion.section
