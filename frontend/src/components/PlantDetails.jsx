@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as plantService from "../services/plantService";
 import placeholder from "../assets/placeholder.png";
 import PlantForm from "./PlantForm";
+import TaskForm from "./TaskForm";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -12,6 +13,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 function PlantDetails(props) {
   const { plantId } = useParams();
@@ -56,6 +77,7 @@ function PlantDetails(props) {
               </p>
               <p>{plant.sunlightInfo}</p>
             </div>
+
             <div className="flex w-full justify-between">
               <Dialog>
                 <DialogTrigger asChild>
@@ -74,9 +96,106 @@ function PlantDetails(props) {
                   />
                 </DialogContent>
               </Dialog>
-              <Button onClick={() => props.handleDeletePlant(plantId)}>
-                Delete
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive">Delete</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Removing this plant will also remove all associated tasks
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => props.handleDeletePlant(plantId)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+            <div className="w-full">
+              <h3 className="m-4 text-center text-4xl font-semibold text-green-600">
+                Tasks
+              </h3>
+              {props.tasks.filter((task) => task.plant === plant._id).length ===
+              0 ? (
+                <p className="mt-8 text-center font-semibold text-green-600">
+                  No tasks for this plant
+                </p>
+              ) : (
+                <></>
+              )}
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="my-8">Create Task</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Create Task</DialogTitle>
+                    <DialogDescription>
+                      Create a new task for your plant
+                    </DialogDescription>
+                  </DialogHeader>
+                  <TaskForm
+                    handleCreateTask={props.handleCreateTask}
+                    plantId={plant._id}
+                  />
+                </DialogContent>
+              </Dialog>
+
+              <ul className="flex flex-col items-center gap-4">
+                {props.tasks
+                  .filter((task) => task.plant === plant._id)
+                  .map((task) => (
+                    <Card
+                      key={task._id}
+                      className="w-96 overflow-hidden text-center text-green-600 shadow-md"
+                    >
+                      <CardHeader>
+                        <CardTitle>{task.name}</CardTitle>
+                        <CardDescription>{task.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Interval: {task.interval}</p>
+                        <p>Time of Day: {task.timeOfDay}</p>
+                      </CardContent>
+                      <CardFooter>
+                        <div className="flex w-full justify-between">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button>Update</Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>Update Task</DialogTitle>
+                                <DialogDescription>
+                                  Update the task for your plant
+                                </DialogDescription>
+                              </DialogHeader>
+                              <TaskForm
+                                handleUpdateTask={props.handleUpdateTask}
+                                taskId={task._id}
+                              />
+                            </DialogContent>
+                          </Dialog>
+                          <Button
+                            variant="destructive"
+                            onClick={() => props.handleDeleteTask(task._id)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  ))}
+              </ul>
             </div>
           </div>
         )}

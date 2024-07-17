@@ -9,6 +9,7 @@ import PlantDetails from "./components/PlantDetails";
 import SearchPlant from "./components/SearchPlant";
 import * as authService from "../src/services/authService";
 import * as plantService from "../src/services/plantService";
+import * as taskService from "../src/services/taskService";
 import * as commentService from "../src/services/commentService";
 export const AuthedUserContext = createContext(null);
 
@@ -16,6 +17,7 @@ const App = () => {
   const [user, setUser] = useState(authService.getUser());
   const [plants, setPlants] = useState([]);
   const [comments, setComments] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
 
   const handleSignout = () => {
@@ -34,8 +36,14 @@ const App = () => {
       setComments(comments);
     };
 
+    const fetchTasks = async () => {
+      const tasks = await taskService.index();
+      setTasks(tasks);
+    };
+
     if (user) {
       fetchPlants();
+      fetchTasks();
       fetchComments();
     }
   }, [user]);
@@ -54,6 +62,12 @@ const App = () => {
   const handleDeletePlant = async (plantId) => {
     const deletedPlant = await plantService.deletePlant(plantId);
     setPlants(plants.filter((plant) => plant._id !== deletedPlant._id));
+    for (let task of tasks) {
+      if (task.plant === plantId) {
+        await taskService.deleteTask(task._id);
+      }
+    }
+
     navigate("/plants");
   };
 
@@ -87,6 +101,25 @@ const App = () => {
     );
   };
 
+  const handleCreateTask = async (taskFormData) => {
+    const newTask = await taskService.createTask(taskFormData);
+    setTasks([...tasks, newTask]);
+  };
+
+  const handleDeleteTask = async (taskId) => {
+    await taskService.deleteTask(taskId);
+    setTasks(tasks.filter((task) => task._id !== taskId));
+  };
+
+  const handleUpdateTask = async (taskId, taskFormData) => {
+    const updatedTask = await taskService.updateTask(taskId, taskFormData);
+    setTasks(
+      tasks.map((task) => (task._id === updatedTask._id ? updatedTask : task)),
+    );
+
+    navigate("/plants");
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -101,6 +134,7 @@ const App = () => {
                   <Garden
                     plants={plants}
                     comments={comments}
+                    tasks={tasks}
                     handleDeleteComment={handleDeleteComment}
                     handleUpdateComment={handleUpdateComment}
                     handleAddComment={handleAddComment}
@@ -113,6 +147,10 @@ const App = () => {
                   <PlantDetails
                     handleDeletePlant={handleDeletePlant}
                     handleUpdatePlant={handleUpdatePlant}
+                    tasks={tasks}
+                    handleDeleteTask={handleDeleteTask}
+                    handleUpdateTask={handleUpdateTask}
+                    handleCreateTask={handleCreateTask}
                   />
                 }
               />
