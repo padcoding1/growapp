@@ -1,7 +1,7 @@
 # growapp
 
 This is an app you can use to track plants you have in your garden, and schedule tasks to complete at specified intervals.
-
+ß
 ### Screenshots
 
 ![Home page](./screenshots/screenshot1.png)
@@ -10,7 +10,7 @@ This is an app you can use to track plants you have in your garden, and schedule
 
 ### Getting started
 
-- The deployed website can be found [here](https://rundown-58b9d07143ca.herokuapp.com/runs).
+- The deployed website can be found [here](https://grow-app-518cb34aeec6.herokuapp.com/).
 
 * The planning materials for this project can be found [here](https://trello.com/b/UvdoJP1z/group-project-3).
 
@@ -20,7 +20,7 @@ This is an app you can use to track plants you have in your garden, and schedule
 
 ### Contributors
 
-- [Phillip Dillon](https://github.com/padcoding1)
+- [Philip Dillon](https://github.com/padcoding1)
 - [Menachem Lemmer](https://github.com/menachemlemmer)
 
 ### Technologies Used
